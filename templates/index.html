@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Scheduler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>OBS Scheduler</h1>
+    
+    <h2>OBS Status</h2>
+    <p>OBS Running: {{ 'Yes' if obs_state['obs_running'] else 'No' }}</p>
+    <p>Streaming: {{ 'Yes' if obs_state['streaming'] else 'No' }}</p>
+    <p>Current Playlist: {{ current_playlist }}</p>
+
+    <h2>Schedule Stream</h2>
+    <form action="/schedule" method="post" enctype="multipart/form-data">
+        <label for="stream_name">Stream Name:</label>
+        <input type="text" id="stream_name" name="stream_name" required><br><br>
+        <label for="start_time">Start Time:</label>
+        <input type="datetime-local" id="start_time" name="start_time" required><br><br>
+        <label for="stop_time">Stop Time:</label>
+        <input type="datetime-local" id="stop_time" name="stop_time" required><br><br>
+        <label for="playlist">Playlist File:</label>
+        <input type="text" id="playlist" name="playlist" required><br><br>
+        <button type="submit">Schedule Stream</button>
+    </form>
+
+
+    <h2>Schedule</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Stream Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Playlist File</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in schedule %}
+            <tr>
+                <td>{{ item['stream_name'] }}</td>
+                <td>{{ item['start_time'] }}</td>
+                <td>{{ item['stop_time'] }}</td>
+                <td>{{ item['playlist'] }}</td>
+                <td><details><summary>program times</summary>
+                    <ul>
+                    {% for x in item['program'] %}
+                        <li><b>{{ x['start_time'] }}</b> - {{ x['title'] }}</li>
+                    {% endfor %}
+                    </ul>
+                
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
