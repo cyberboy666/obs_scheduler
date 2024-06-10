@@ -1,4 +1,4 @@
-# obs_schedular
+# obs_scheduler
 
 _a simple webserver for scheduling obs broadcasts from m3u8 playlists_
 
