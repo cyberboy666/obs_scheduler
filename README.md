@@ -15,7 +15,16 @@ _NOTE: This project was quickly put together to explore diy automated broadcasti
 ### how to run
 
 - install python3 on your computer (i think you may need 3.9 or higher ?)
-- clone this repo `git clone git@github.com:cyberboy666/obs_scheduler.git` and then `cd obs_scheduler` into the folder
+- clone this repo `git clone https://github.com/cyberboy666/obs_scheduler.git` and then `cd obs_scheduler` into the folder
+
+### if you want to install virtual envirnment:
+
+```
+sudo apt-get install python3-venv
+python3 -m venv venv
+source venv/bin/activate
+```
+
 - install dependancies: `pip3 install -r requirements.txt`
 - open OBS and enable web-sockets (tools -> websocket server settings -> enable websocket server) and set `port:4444` and password `your_password` - or update `obs_scheduler.py` with port/password used here
 - run the program: `python3 obs_scheduler.py `

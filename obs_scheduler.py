@@ -38,16 +38,6 @@ def parse_playlist(playlist_path):
         run_time = run_time + segment.duration
     return videos
 
-def generate_schedule(start_time, playlist_path):
-    videos = parse_playlist(playlist_path)
-    schedule = []
-    current_time = start_time
-    for video in videos:
-        end_time = current_time + timedelta(seconds=video['duration'])
-        schedule.append({'title': video['title'], 'start_time': current_time, 'end_time': end_time})
-        current_time = end_time
-    return schedule
-
 def start_stream(playlist_path, stream_name):
     global stream_active, current_playlist, schedule
     try:
@@ -95,7 +85,6 @@ def start_stream(playlist_path, stream_name):
         logging.info("Starting stream with playlist: {}".format(playlist_path))
         current_playlist = playlist_path
         start_time = datetime.now()
-        schedule = generate_schedule(start_time,playlist_path)
         cl.start_stream()
         stream_active = True
 
